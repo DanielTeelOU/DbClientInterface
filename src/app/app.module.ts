@@ -14,17 +14,24 @@ import {
   MatButtonModule,
   MatSortModule,
   MatPaginator,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatIconModule
 } from '@angular/material';
 
 import { DialogBoxxComponent } from './dialog-boxx/dialog-boxx.component';
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
+import { AddComponent } from './add/add.component';
+import { DeleteComponent } from './delete/delete.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogBoxxComponent,
-    TableFilteringComponent
+    TableFilteringComponent,
+    AddComponent,
+    DeleteComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
@@ -34,11 +41,11 @@ import { TableFilteringComponent } from './table-filtering/table-filtering.compo
     MatTableModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
     MatInputModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   entryComponents: [
     DialogBoxxComponent

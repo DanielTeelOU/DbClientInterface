@@ -3,24 +3,25 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 
-export interface PeriodicElement {
-  name: string;
+export interface MyData {
   id: number;
+  name: string;
   identity: string;
   publisher: string;
+  delete: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 1, name: 'Venom', identity: 'Eddie Brock', publisher: 'Marvel'},
-  {id: 2, name: 'Batman', identity: 'Bruce Wayne', publisher: 'DC'},
-  {id: 3, name: 'Captain America', identity: 'Steve Rogers', publisher: 'Marvel'},
-  {id: 4, name: 'Spider-Man', identity: 'Peter Parker', publisher: 'Marvel'},
-  {id: 5, name: 'Carnage', identity: 'Cletus Kassidy', publisher: 'Marvel'},
-  {id: 6, name: 'Green Lantern', identity: 'Hal Jordan', publisher: 'DC'},
-  {id: 7, name: 'Superman', identity: 'Clark Kent', publisher: 'DC'},
-  {id: 8, name: 'Toxin', identity: 'Pat Mulligan', publisher: 'DC'},
-  {id: 9, name: 'Black Canary', identity: 'Dinah Lance', publisher: 'DC'},
-  {id: 10, name: 'Deadpool', identity: 'Wade Wilson', publisher: 'Marvel'},
+let TABLE_DATA: MyData[] = [
+  {id: 1, name: 'Venom', identity: 'Eddie Brock', publisher: 'Marvel', delete: ''},
+  {id: 2, name: 'Batman', identity: 'Bruce Wayne', publisher: 'DC', delete: ''},
+  {id: 3, name: 'Captain America', identity: 'Steve Rogers', publisher: 'Marvel', delete: ''},
+  {id: 4, name: 'Spider-Man', identity: 'Peter Parker', publisher: 'Marvel', delete: ''},
+  {id: 5, name: 'Carnage', identity: 'Cletus Kassidy', publisher: 'Marvel', delete: ''},
+  {id: 6, name: 'Green Lantern', identity: 'Hal Jordan', publisher: 'DC', delete: ''},
+  {id: 7, name: 'Superman', identity: 'Clark Kent', publisher: 'DC', delete: ''},
+  {id: 8, name: 'Toxin', identity: 'Pat Mulligan', publisher: 'DC', delete: ''},
+  {id: 9, name: 'Black Canary', identity: 'Dinah Lance', publisher: 'DC', delete: ''},
+  {id: 10, name: 'Deadpool', identity: 'Wade Wilson', publisher: 'Marvel', delete: ''},
 ];
 
 @Component({
@@ -30,8 +31,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class TableFilteringComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'identity', 'publisher'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'name', 'identity', 'publisher', 'delete'];
+  dataSource = new MatTableDataSource(TABLE_DATA);
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -45,6 +46,10 @@ export class TableFilteringComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor() { }
+  delete(id: number){
+    console.log(id);
+    TABLE_DATA = TABLE_DATA.filter(row => row.id !== id);
+    this.dataSource = new MatTableDataSource(TABLE_DATA);
+  }
 
 }
