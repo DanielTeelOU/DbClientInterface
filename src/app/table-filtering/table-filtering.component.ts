@@ -1,28 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatTable} from '@angular/material';
+import {MatTable, MatDialogModule} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
+// import {MatExpansionModule} from '@angular/material/expansion';
 
 export interface MyData {
   id: number;
   name: string;
   identity: string;
   publisher: string;
-  delete: string;
+  action: string;
 }
 
 let TABLE_DATA: MyData[] = [
-  {id: 1, name: 'Venom', identity: 'Eddie Brock', publisher: 'Marvel', delete: ''},
-  {id: 2, name: 'Batman', identity: 'Bruce Wayne', publisher: 'DC', delete: ''},
-  {id: 3, name: 'Captain America', identity: 'Steve Rogers', publisher: 'Marvel', delete: ''},
-  {id: 4, name: 'Spider-Man', identity: 'Peter Parker', publisher: 'Marvel', delete: ''},
-  {id: 5, name: 'Carnage', identity: 'Cletus Kassidy', publisher: 'Marvel', delete: ''},
-  {id: 6, name: 'Green Lantern', identity: 'Hal Jordan', publisher: 'DC', delete: ''},
-  {id: 7, name: 'Superman', identity: 'Clark Kent', publisher: 'DC', delete: ''},
-  {id: 8, name: 'Toxin', identity: 'Pat Mulligan', publisher: 'DC', delete: ''},
-  {id: 9, name: 'Black Canary', identity: 'Dinah Lance', publisher: 'DC', delete: ''},
-  {id: 10, name: 'Deadpool', identity: 'Wade Wilson', publisher: 'Marvel', delete: ''},
+  {id: 1, name: 'Venom', identity: 'Eddie Brock', publisher: 'Marvel', action: ''},
+  {id: 2, name: 'Batman', identity: 'Bruce Wayne', publisher: 'DC', action: ''},
+  {id: 3, name: 'Captain America', identity: 'Steve Rogers', publisher: 'Marvel', action: ''},
+  {id: 4, name: 'Spider-Man', identity: 'Peter Parker', publisher: 'Marvel', action: ''},
+  {id: 5, name: 'Carnage', identity: 'Cletus Kassidy', publisher: 'Marvel', action: ''},
+  {id: 6, name: 'Green Lantern', identity: 'Hal Jordan', publisher: 'DC', action: ''},
+  {id: 7, name: 'Superman', identity: 'Clark Kent', publisher: 'DC', action: ''},
+  {id: 8, name: 'Toxin', identity: 'Pat Mulligan', publisher: 'DC', action: ''},
+  {id: 9, name: 'Black Canary', identity: 'Dinah Lance', publisher: 'DC', action: ''},
+  {id: 10, name: 'Deadpool', identity: 'Wade Wilson', publisher: 'Marvel', action: ''},
 ];
 
 @Component({
@@ -32,7 +33,7 @@ let TABLE_DATA: MyData[] = [
 })
 export class TableFilteringComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'identity', 'publisher', 'delete'];
+  displayedColumns: string[] = ['id', 'name', 'identity', 'publisher', 'actions'];
   dataSource = new MatTableDataSource(TABLE_DATA);
 
   applyFilter(filterValue: string) {
@@ -56,8 +57,12 @@ export class TableFilteringComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // ngAfterViewInit(){
-  //   this.dataSource.paginator = this.paginator;
-  // }
-  
+  edit(name: string, identity: string, publisher: string) {
+    
+  }
+
+  add(name: string, identity: string, publisher: string) {
+    
+  }
+
 }

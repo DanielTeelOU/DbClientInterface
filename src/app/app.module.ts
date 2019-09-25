@@ -18,20 +18,14 @@ import {
   MatIconModule
 } from '@angular/material';
 
-import { DialogBoxxComponent } from './dialog-boxx/dialog-boxx.component';
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
-import { AddComponent } from './add/add.component';
-import { DeleteComponent } from './delete/delete.component';
-import { EditComponent } from './edit/edit.component';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogBoxxComponent,
     TableFilteringComponent,
-    AddComponent,
-    DeleteComponent,
-    EditComponent
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +42,6 @@ import { EditComponent } from './edit/edit.component';
     MatIconModule
   ],
   entryComponents: [
-    DialogBoxxComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
