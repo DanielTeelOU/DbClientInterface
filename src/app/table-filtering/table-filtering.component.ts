@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatTable} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 
 export interface MyData {
@@ -40,6 +41,7 @@ export class TableFilteringComponent implements OnInit {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatTable, {static: false}) table: MatTable<any>;
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -50,6 +52,12 @@ export class TableFilteringComponent implements OnInit {
     console.log(id);
     TABLE_DATA = TABLE_DATA.filter(row => row.id !== id);
     this.dataSource = new MatTableDataSource(TABLE_DATA);
+    this.table.renderRows();
+    this.dataSource.paginator = this.paginator;
   }
 
+  // ngAfterViewInit(){
+  //   this.dataSource.paginator = this.paginator;
+  // }
+  
 }
