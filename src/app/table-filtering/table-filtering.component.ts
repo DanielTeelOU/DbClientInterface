@@ -7,23 +7,23 @@ import {MatPaginator} from '@angular/material/paginator';
 
 export interface MyData {
   id: number;
-  name: string;
-  identity: string;
-  publisher: string;
-  action: string;
+  priority: string;
+  description: string;
+  status: string;
+  actions: string;
 }
 
 let TABLE_DATA: MyData[] = [
-  {id: 1, name: 'Venom', identity: 'Eddie Brock', publisher: 'Marvel', action: ''},
-  {id: 2, name: 'Batman', identity: 'Bruce Wayne', publisher: 'DC', action: ''},
-  {id: 3, name: 'Captain America', identity: 'Steve Rogers', publisher: 'Marvel', action: ''},
-  {id: 4, name: 'Spider-Man', identity: 'Peter Parker', publisher: 'Marvel', action: ''},
-  {id: 5, name: 'Carnage', identity: 'Cletus Kassidy', publisher: 'Marvel', action: ''},
-  {id: 6, name: 'Green Lantern', identity: 'Hal Jordan', publisher: 'DC', action: ''},
-  {id: 7, name: 'Superman', identity: 'Clark Kent', publisher: 'DC', action: ''},
-  {id: 8, name: 'Toxin', identity: 'Pat Mulligan', publisher: 'DC', action: ''},
-  {id: 9, name: 'Black Canary', identity: 'Dinah Lance', publisher: 'DC', action: ''},
-  {id: 10, name: 'Deadpool', identity: 'Wade Wilson', publisher: 'Marvel', action: ''},
+  {id: 1, priority: 'urgent', description: 'error1', status: 'open', actions: ''},
+  {id: 2, priority: 'urgent', description: 'error2', status: 'closed', actions: ''},
+  {id: 3, priority: 'medium', description: 'error3', status: 'closed', actions: ''},
+  {id: 4, priority: 'low', description: 'error4', status: 'open', actions: ''},
+  {id: 5, priority: 'medium', description: 'error5', status: 'open', actions: ''},
+  {id: 6, priority: 'low', description: 'error6', status: 'open', actions: ''},
+  {id: 7, priority: 'urgent', description: 'error7', status: 'open', actions: ''},
+  {id: 8, priority: 'low', description: 'error8', status: 'open', actions: ''},
+  {id: 9, priority: 'low', description: 'error9', status: 'closed', actions: ''},
+  {id: 10, priority: 'low', description: 'error10', status: 'open', actions: ''},
 ];
 
 @Component({
@@ -33,7 +33,7 @@ let TABLE_DATA: MyData[] = [
 })
 export class TableFilteringComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'identity', 'publisher', 'actions'];
+  displayedColumns: string[] = ['id', 'priority', 'description', 'status', 'actions'];
   dataSource = new MatTableDataSource(TABLE_DATA);
 
   applyFilter(filterValue: string) {
