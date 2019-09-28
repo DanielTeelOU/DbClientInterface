@@ -1,29 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatTable, MatDialogModule} from '@angular/material';
+import {MatTable, MatSelectModule , MatDialogModule} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
+import { element } from 'protractor';
 // import {MatExpansionModule} from '@angular/material/expansion';
+import { AddComponent } from '../add/add.component';
 
 export interface MyData {
   id: number;
   priority: string;
   description: string;
   status: string;
+  createDate: string;
   actions: string;
 }
 
 let TABLE_DATA: MyData[] = [
-  {id: 1, priority: 'urgent', description: 'error1', status: 'open', actions: ''},
-  {id: 2, priority: 'urgent', description: 'error2', status: 'closed', actions: ''},
-  {id: 3, priority: 'medium', description: 'error3', status: 'closed', actions: ''},
-  {id: 4, priority: 'low', description: 'error4', status: 'open', actions: ''},
-  {id: 5, priority: 'medium', description: 'error5', status: 'open', actions: ''},
-  {id: 6, priority: 'low', description: 'error6', status: 'open', actions: ''},
-  {id: 7, priority: 'urgent', description: 'error7', status: 'open', actions: ''},
-  {id: 8, priority: 'low', description: 'error8', status: 'open', actions: ''},
-  {id: 9, priority: 'low', description: 'error9', status: 'closed', actions: ''},
-  {id: 10, priority: 'low', description: 'error10', status: 'open', actions: ''},
+  {id: 1, priority: 'urgent', description: 'error1', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 2, priority: 'urgent', description: 'error2', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 3, priority: 'medium', description: 'error3', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 4, priority: 'low', description: 'error4', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 5, priority: 'medium', description: 'error5', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 6, priority: 'low', description: 'error6', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 7, priority: 'urgent', description: 'error7', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 8, priority: 'low', description: 'error8', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 9, priority: 'low', description: 'error9', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 10, priority: 'low', description: 'error10', status: 'open', createDate: '09/27/2019', actions: ''},
 ];
 
 @Component({
@@ -33,7 +36,7 @@ let TABLE_DATA: MyData[] = [
 })
 export class TableFilteringComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'priority', 'description', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'priority', 'description', 'status', 'createDate', 'actions'];
   dataSource = new MatTableDataSource(TABLE_DATA);
 
   applyFilter(filterValue: string) {
@@ -57,12 +60,8 @@ export class TableFilteringComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  edit(name: string, identity: string, publisher: string) {
-    
-  }
-
-  add(name: string, identity: string, publisher: string) {
-    
+  edit(description: string, priority: string, status: string) {
+    console.log('edit');
   }
 
 }

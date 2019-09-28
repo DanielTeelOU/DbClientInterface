@@ -1,8 +1,9 @@
 /* Structure */
 table {
     width: 100%;
+    /* text-align: center; */
   }
-  
+
   .mat-form-field {
     font-size: 14px;
     width: 100%;
@@ -11,4 +12,8 @@ table {
   th.mat-sort-header-sorted {
     color: black;
   }
-  
+/* 
+::ng-deep .mat-sort-header-container {
+  display:flex;
+  justify-content:center;
+} */
