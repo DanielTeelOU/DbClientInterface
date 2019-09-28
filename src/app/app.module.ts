@@ -20,14 +20,12 @@ import {
 } from '@angular/material';
 
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
-import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { AddComponent } from './add/add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableFilteringComponent,
-    DialogBoxComponent,
     AddComponent
   ],
   imports: [
