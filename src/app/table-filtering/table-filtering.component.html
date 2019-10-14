@@ -1,7 +1,8 @@
 <div class="mat-elevation-z8">    
-    <mat-form-field>
+    <mat-form-field style="width: 95%; float: left;">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
     </mat-form-field>
+    <app-add style="float: right;"></app-add>
 
     <table mat-table [dataSource]="dataSource" matSort>
 

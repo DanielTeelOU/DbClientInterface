@@ -1,4 +1,10 @@
-<div style="text-align:center">
-  <h1> Issue Tracker <app-add></app-add> </h1>
-</div>
-<app-table-filtering></app-table-filtering>
+<mat-tab-group>
+    <mat-tab label="Home"> Home </mat-tab>
+    <mat-tab label="Issue Tracking">
+        <div style="text-align:center">
+          <h1> Issue Tracker </h1>
+          <app-table-filtering></app-table-filtering>
+        </div>
+    </mat-tab>
+    <mat-tab label="Messaging"> Messaging </mat-tab>
+  </mat-tab-group>
