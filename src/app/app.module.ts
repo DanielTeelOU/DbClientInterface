@@ -16,7 +16,10 @@ import {
   MatPaginator,
   MatPaginatorModule,
   MatIconModule,
-  MatSelectModule
+  MatSelectModule,
+  MatMenuModule,
+  MatTabsModule,
+  MatRippleModule
 } from '@angular/material';
 
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
@@ -41,7 +44,9 @@ import { AddComponent } from './add/add.component';
     MatSortModule,
     MatPaginatorModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule,
+    MatRippleModule
   ],
   entryComponents: [
   ],
