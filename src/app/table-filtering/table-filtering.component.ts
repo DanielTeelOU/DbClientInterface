@@ -13,20 +13,21 @@ export interface MyData {
   description: string;
   status: string;
   createDate: string;
+  closeDate: string;
   actions: string;
 }
 
 let TABLE_DATA: MyData[] = [
-  {id: 1, priority: 'urgent', description: 'error1', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 2, priority: 'urgent', description: 'error2', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 3, priority: 'medium', description: 'error3', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 4, priority: 'low', description: 'error4', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 5, priority: 'medium', description: 'error5', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 6, priority: 'low', description: 'error6', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 7, priority: 'urgent', description: 'error7', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 8, priority: 'low', description: 'error8', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 9, priority: 'low', description: 'error9', status: 'open', createDate: '09/27/2019', actions: ''},
-  {id: 10, priority: 'low', description: 'error10', status: 'open', createDate: '09/27/2019', actions: ''},
+  {id: 1, priority: 'urgent', description: 'error1', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 2, priority: 'urgent', description: 'error2', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 3, priority: 'medium', description: 'error3', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 4, priority: 'low', description: 'error4', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 5, priority: 'medium', description: 'error5', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 6, priority: 'low', description: 'error6', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 7, priority: 'urgent', description: 'error7', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 8, priority: 'low', description: 'error8', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 9, priority: 'low', description: 'error9', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+  {id: 10, priority: 'low', description: 'error10', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
 ];
 
 @Component({
@@ -36,7 +37,7 @@ let TABLE_DATA: MyData[] = [
 })
 export class TableFilteringComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'priority', 'description', 'status', 'createDate', 'actions'];
+  displayedColumns: string[] = ['id', 'priority', 'description', 'status', 'createDate', 'closeDate', 'actions'];
   dataSource = new MatTableDataSource(TABLE_DATA);
 
   applyFilter(filterValue: string) {
