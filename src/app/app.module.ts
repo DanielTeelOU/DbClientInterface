@@ -19,7 +19,9 @@ import {
   MatSelectModule,
   MatMenuModule,
   MatTabsModule,
-  MatRippleModule
+  MatRippleModule,
+  MatExpansionModule,
+  MatCardModule
 } from '@angular/material';
 
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
@@ -27,6 +29,7 @@ import { AddComponent } from './add/add.component';
 import { HomeComponent } from './home/home.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { SupportComponent } from './support/support.component';
+import { GithubupdatesComponent } from './githubupdates/githubupdates.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { SupportComponent } from './support/support.component';
     AddComponent,
     HomeComponent,
     MessagingComponent,
-    SupportComponent
+    SupportComponent,
+    GithubupdatesComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { SupportComponent } from './support/support.component';
     MatIconModule,
     MatSelectModule,
     MatTabsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatExpansionModule,
+    MatCardModule
   ],
   entryComponents: [
   ],
