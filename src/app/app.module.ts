@@ -19,7 +19,8 @@ import {
   MatSelectModule,
   MatMenuModule,
   MatTabsModule,
-  MatRippleModule
+  MatRippleModule,
+  MatExpansionModule
 } from '@angular/material';
 
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
@@ -52,7 +53,8 @@ import { SupportComponent } from './support/support.component';
     MatIconModule,
     MatSelectModule,
     MatTabsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatExpansionModule
   ],
   entryComponents: [
   ],
