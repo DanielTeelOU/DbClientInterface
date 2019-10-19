@@ -30,6 +30,7 @@ import { HomeComponent } from './home/home.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { SupportComponent } from './support/support.component';
 import { GithubupdatesComponent } from './githubupdates/githubupdates.component';
+import { AddDialogComponent } from './add-dialog/add-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { GithubupdatesComponent } from './githubupdates/githubupdates.component'
     HomeComponent,
     MessagingComponent,
     SupportComponent,
-    GithubupdatesComponent
+    GithubupdatesComponent,
+    AddDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,7 @@ import { GithubupdatesComponent } from './githubupdates/githubupdates.component'
     MatTabsModule,
     MatRippleModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
   ],
   entryComponents: [
   ],
