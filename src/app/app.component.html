@@ -1,10 +1,29 @@
 <mat-tab-group>
-    <mat-tab label="Home"> Home </mat-tab>
-    <mat-tab label="Issue Tracking">
-        <div style="text-align:center">
-          <h1> Issue Tracker </h1>
-          <app-table-filtering></app-table-filtering>
-        </div>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>home</mat-icon> Home
+          </ng-template>
+      <app-home></app-home>
     </mat-tab>
-    <mat-tab label="Messaging"> Messaging </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>chat_bubble</mat-icon> Messaging
+          </ng-template>
+      <app-messaging></app-messaging>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>developer_board</mat-icon> Issue Tracking
+          </ng-template>
+      <div style="text-align:center">
+        <h1> Issue Tracker </h1>
+        <app-table-filtering></app-table-filtering>
+      </div>
+  </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+      <mat-icon>settings</mat-icon> Support
+    </ng-template>
+      <app-support></app-support>
+    </mat-tab>
   </mat-tab-group>

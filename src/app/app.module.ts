@@ -24,12 +24,18 @@ import {
 
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
 import { AddComponent } from './add/add.component';
+import { HomeComponent } from './home/home.component';
+import { MessagingComponent } from './messaging/messaging.component';
+import { SupportComponent } from './support/support.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableFilteringComponent,
-    AddComponent
+    AddComponent,
+    HomeComponent,
+    MessagingComponent,
+    SupportComponent
   ],
   imports: [
     BrowserModule,
