@@ -1,34 +1,39 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatTable, MatSelectModule , MatDialogModule} from '@angular/material';
-import {MatPaginator} from '@angular/material/paginator';
-import { element } from 'protractor';
-// import {MatExpansionModule} from '@angular/material/expansion';
-import { AddComponent } from '../add/add.component';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {DataService} from '../services/data.service';
+import {HttpClient} from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import {Issue} from '../models/issue';
+import {DataSource} from '@angular/cdk/collections';
+import {AddComponent} from '../dialogs/add/add.component';
+import {EditComponent} from '../dialogs/edit/edit.component';
+import {DeleteComponent} from '../dialogs/delete/delete.component';
+import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-export interface MyData {
-  id: number;
-  priority: string;
-  description: string;
-  status: string;
-  createDate: string;
-  closeDate: string;
-  actions: string;
-}
+// export interface MyData {
+//   id: number;
+//   priority: string;
+//   description: string;
+//   status: string;
+//   createDate: string;
+//   closeDate: string;
+//   actions: string;
+// }
 
-let TABLE_DATA: MyData[] = [
-  {id: 1, priority: 'urgent', description: 'error1', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 2, priority: 'urgent', description: 'error2', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 3, priority: 'medium', description: 'error3', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 4, priority: 'low', description: 'error4', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 5, priority: 'medium', description: 'error5', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 6, priority: 'low', description: 'error6', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 7, priority: 'urgent', description: 'error7', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 8, priority: 'low', description: 'error8', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 9, priority: 'low', description: 'error9', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-  {id: 10, priority: 'low', description: 'error10', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-];
+// let TABLE_DATA: MyData[] = [
+//   {id: 1, priority: 'urgent', description: 'error1', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 2, priority: 'urgent', description: 'error2', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 3, priority: 'medium', description: 'error3', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 4, priority: 'low', description: 'error4', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 5, priority: 'medium', description: 'error5', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 6, priority: 'low', description: 'error6', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 7, priority: 'urgent', description: 'error7', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 8, priority: 'low', description: 'error8', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 9, priority: 'low', description: 'error9', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+//   {id: 10, priority: 'low', description: 'error10', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
+// ];
 
 @Component({
   selector: 'app-table-filtering',
@@ -37,32 +42,165 @@ let TABLE_DATA: MyData[] = [
 })
 export class TableFilteringComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'priority', 'description', 'status', 'createDate', 'closeDate', 'actions'];
-  dataSource = new MatTableDataSource(TABLE_DATA);
+  displayedColumns = ['id', 'title', 'state', 'created_at', 'updated_at', 'actions'];
+  exampleDatabase: DataService | null;
+  dataSource: ExampleDataSource | null;
+  index: number;
+  id: number;
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+  constructor(public httpClient: HttpClient,
+              public dialog: MatDialog,
+              public dataService: DataService) {}
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild('filter',  {static: true}) filter: ElementRef;
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.loadData();
   }
 
-  delete(id: number){
-    console.log(id);
-    TABLE_DATA = TABLE_DATA.filter(row => row.id !== id);
-    this.dataSource = new MatTableDataSource(TABLE_DATA);
-    this.table.renderRows();
-    this.dataSource.paginator = this.paginator;
+  refresh() {
+    this.loadData();
   }
 
-  edit(description: string, priority: string, status: string) {
-    console.log('edit');
+  addNew(issue: Issue) {
+    const dialogRef = this.dialog.open(AddComponent, {
+      data: {issue: issue }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+        this.refreshTable();
+      }
+    });
+  }
+
+  startEdit(i: number, id: number, title: string, state: string, created_at: string, updated_at: string) {
+    this.id = id;
+    this.index = i;
+    console.log(this.index);
+    const dialogRef = this.dialog.open(EditComponent, {
+      data: {id: id, title: title, state: state, created_at: created_at, updated_at: updated_at}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
+        this.refreshTable();
+      }
+    });
+  }
+
+  deleteItem(i: number, id: number, title: string, state: string) {
+    this.index = i;
+    this.id = id;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {id: id, title: title, state: state}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        this.refreshTable();
+      }
+    });
+  }
+
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
+
+  public loadData() {
+    this.exampleDatabase = new DataService(this.httpClient);
+    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
+    fromEvent(this.filter.nativeElement, 'keyup')
+      // .debounceTime(150)
+      // .distinctUntilChanged()
+      .subscribe(() => {
+        if (!this.dataSource) {
+          return;
+        }
+        this.dataSource.filter = this.filter.nativeElement.value;
+      });
+  }
+}
+
+export class ExampleDataSource extends DataSource<Issue> {
+  _filterChange = new BehaviorSubject('');
+
+  get filter(): string {
+    return this._filterChange.value;
+  }
+
+  set filter(filter: string) {
+    this._filterChange.next(filter);
+  }
+
+  filteredData: Issue[] = [];
+  renderedData: Issue[] = [];
+
+  constructor(public _exampleDatabase: DataService,
+              public _paginator: MatPaginator,
+              public _sort: MatSort) {
+    super();
+    this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
+  }
+
+  connect(): Observable<Issue[]> {
+    const displayDataChanges = [
+      this._exampleDatabase.dataChange,
+      this._sort.sortChange,
+      this._filterChange,
+      this._paginator.page
+    ];
+
+    this._exampleDatabase.getAllIssues();
+
+
+    return merge(...displayDataChanges).pipe(map( () => {
+        this.filteredData = this._exampleDatabase.data.slice().filter((issue: Issue) => {
+          const searchStr = (issue.id + issue.title + issue.created_at).toLowerCase();
+          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+        });
+
+        const sortedData = this.sortData(this.filteredData.slice());
+
+        const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+        this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+        return this.renderedData;
+      }
+    ));
+  }
+
+  disconnect() {}
+
+  sortData(data: Issue[]): Issue[] {
+    if (!this._sort.active || this._sort.direction === '') {
+      return data;
+    }
+
+    return data.sort((a, b) => {
+      let propertyA: number | string = '';
+      let propertyB: number | string = '';
+
+    switch (this._sort.active) {
+      case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
+      case 'title': [propertyA, propertyB] = [a.title, b.title]; break;
+      case 'state': [propertyA, propertyB] = [a.state, b.state]; break;
+      case 'created_at': [propertyA, propertyB] = [a.created_at, b.created_at]; break;
+      case 'updated_at': [propertyA, propertyB] = [a.updated_at, b.updated_at]; break;
+    }
+
+      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+
+      return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
+    });
   }
 
 }
