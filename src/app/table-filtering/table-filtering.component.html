@@ -1,64 +1,80 @@
-<div class="mat-elevation-z8">    
-    <mat-form-field style="width: 95%; float: left;">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-    </mat-form-field>
-    <app-add style="float: right;"></app-add>
+<span class="spacer"></span>
+Reload data:
+<button mat-icon-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+</button>
+      
+<div class="container mat-elevation-z8">
 
-    <table mat-table [dataSource]="dataSource" matSort>
+    <div class="form">
+        <mat-form-field floatPlaceholder="never" color="accent">
+        <input matInput #filter placeholder="Filter issues">
+        </mat-form-field>
+    </div>
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+        ng update @angular/cli @angular/core
+        <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Priority Column -->
-    <ng-container matColumnDef="priority">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
-        <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
-    </ng-container>
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
+        </ng-container>
 
-    <!-- Description Column -->
-    <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
+        <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.title}}</mat-cell>
+        </ng-container>
 
-    <!-- Status Column -->
-    <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-        <td mat-cell *matCellDef="let element"> {{ element.status }} </td>
-    </ng-container>
+        <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.state}}</mat-cell>
+        </ng-container>
 
-    <!-- Creation Date Column -->
-    <ng-container matColumnDef="createDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Creation Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.createDate}} </td>
-    </ng-container>
+        <ng-container matColumnDef="created_at">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.created_at}}</mat-cell>
+        </ng-container>
 
-    <ng-container matColumnDef="closeDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Closed Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.closeDate}} </td>
-    </ng-container>
+        <ng-container matColumnDef="updated_at">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Updated at</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.updated_at}}</mat-cell>
+        </ng-container>
 
-    <!-- Action Buttons Column -->
-    <ng-container matColumnDef='actions'>
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element"> {{element.actions}}
-            <button mat-button (click)="delete(element.id)" mat-flat-button color="warn"> 
-                <mat-icon aria-label="Delete">delete</mat-icon>
+        <!-- actions -->
+        <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+            <button mat-icon-button color="primary" (click)="addNew()">
+            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
             </button>
-            <button mat-button (click)="edit(element.priority, element.description, element.status)" mat-flat-button color="primary"> 
-                    <mat-icon aria-label="Edit">edit</mat-icon>
-            </button>
-            <!-- <button mat-button (click)="add(element.id, element.priority, element.description, element.status, element.createDate)" mat-flat-button color="primary" style="float: left">
-                <mat-icon aria-label="Add">add</mat-icon>
-            </button> -->
-        </td>
-    </ng-container>
+        </mat-header-cell>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <mat-cell *matCellDef="let row; let i=index;">
+            <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.state, row.url, row.created_at, row.updated_at)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.title, row.state, row.url)">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+        </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+
+    <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+        No results
+    </div>
+
+    <mat-paginator #paginator
+                    [length]="dataSource.filteredData.length"
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
 </div>

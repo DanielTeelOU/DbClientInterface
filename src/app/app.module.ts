@@ -4,7 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {DataService} from './services/data.service';
 
 import { 
   MatTableModule, 
@@ -21,25 +23,30 @@ import {
   MatTabsModule,
   MatRippleModule,
   MatExpansionModule,
-  MatCardModule
+  MatCardModule,
+  MatToolbarModule
 } from '@angular/material';
 
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
-import { AddComponent } from './add/add.component';
 import { HomeComponent } from './home/home.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { SupportComponent } from './support/support.component';
 import { GithubupdatesComponent } from './githubupdates/githubupdates.component';
+import { AddComponent } from './dialogs/add/add.component';
+import { DeleteComponent } from './dialogs/delete/delete.component';
+import { EditComponent } from './dialogs/edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableFilteringComponent,
-    AddComponent,
     HomeComponent,
     MessagingComponent,
     SupportComponent,
-    GithubupdatesComponent
+    GithubupdatesComponent,
+    AddComponent,
+    DeleteComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
@@ -58,11 +65,17 @@ import { GithubupdatesComponent } from './githubupdates/githubupdates.component'
     MatTabsModule,
     MatRippleModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatToolbarModule
   ],
   entryComponents: [
+    AddComponent,
+    DeleteComponent,
+    EditComponent
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
