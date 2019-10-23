@@ -3,6 +3,7 @@
 
     <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
 
+        <!-- ID entry -->
         <div class="form">
         <mat-form-field color="accent">
             <input matInput #input class="form-control" placeholder="ID" [(ngModel)]="data.id" name="id" required >
@@ -10,7 +11,7 @@
         </mat-form-field>
         </div>
 
-        <!--Textarea for demo purposes-->
+        <!-- Title entry -->
         <div class="form">
         <mat-form-field color="accent">
             <textarea matInput #input class="form-control" placeholder="Title" [(ngModel)]="data.title" name="title" required ></textarea>
@@ -18,7 +19,15 @@
         </mat-form-field>
         </div>
 
-        <!--Contains mat-hint for characters count and has maxLengt set-->
+        <!-- Comments entry -->
+        <div class="form">
+        <mat-form-field color="accent">
+            <textarea matInput #input class="form-control" placeholder="Comments" [(ngModel)]="data.body" name="body" ></textarea>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        </div>
+    
+        <!-- Status entry -->
         <div class="form">
         <mat-form-field color="accent">
             <input matInput #inputstate class="form-control" placeholder="Status" [(ngModel)]="data.state" name="state" maxlength="10" required >
@@ -27,24 +36,21 @@
         </mat-form-field>
         </div>
 
-        <!-- <div class="form">
-            <mat-form-field color="accent">
-            <input matInput placeholder="Url" [(ngModel)]="data.url" name="url">
-            </mat-form-field>
-        </div> -->
-
+        <!-- Created at entry -->
         <div class="form">
         <mat-form-field color="accent">
-            <input matInput placeholder="Created At" [(ngModel)]="data.created_at" name="created_at">
+            <input matInput placeholder="Created at" [(ngModel)]="data.created_at" name="created_at">
+        </mat-form-field>
+        </div>
+    
+        <!-- Updated at entry -->
+        <div class="form">
+        <mat-form-field color="accent">
+            <input matInput placeholder="Updated at" [(ngModel)]="data.updated_at" name="updated_at">
         </mat-form-field>
         </div>
 
-        <div class="form">
-        <mat-form-field color="accent">
-            <input matInput placeholder="Updated At" [(ngModel)]="data.updated_at" name="updated_at">
-        </mat-form-field>
-        </div>
-
+        <!-- buttons -->
         <div mat-dialog-actions>
         <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>

@@ -11,6 +11,7 @@ import {EditComponent} from '../dialogs/edit/edit.component';
 import {DeleteComponent} from '../dialogs/delete/delete.component';
 import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import { trigger, state, animate, transition, style } from '@angular/animations';
 
 // export interface MyData {
 //   id: number;
@@ -42,7 +43,8 @@ import {map} from 'rxjs/operators';
 })
 export class TableFilteringComponent implements OnInit {
 
-  displayedColumns = ['id', 'title', 'state', 'created_at', 'updated_at', 'actions'];
+  //this is what is actually shown in the table
+  displayedColumns = ['id', 'title', 'body', 'state', 'created_at', 'updated_at', 'actions'];
   exampleDatabase: DataService | null;
   dataSource: ExampleDataSource | null;
   index: number;
@@ -77,12 +79,12 @@ export class TableFilteringComponent implements OnInit {
     });
   }
 
-  startEdit(i: number, id: number, title: string, state: string, created_at: string, updated_at: string) {
+  startEdit(i: number, id: number, title: string, body: string, state: string, created_at: string, updated_at: string) {
     this.id = id;
     this.index = i;
     console.log(this.index);
     const dialogRef = this.dialog.open(EditComponent, {
-      data: {id: id, title: title, state: state, created_at: created_at, updated_at: updated_at}
+      data: {id: id, title: title, body: body, state: state, created_at: created_at, updated_at: updated_at}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -94,11 +96,11 @@ export class TableFilteringComponent implements OnInit {
     });
   }
 
-  deleteItem(i: number, id: number, title: string, state: string) {
+  deleteItem(i: number, id: number, title: string, body: string, state: string, number: number) {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {id: id, title: title, state: state}
+      data: {id: id, title: title, body: body, state: state, number: number}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -161,10 +163,10 @@ export class ExampleDataSource extends DataSource<Issue> {
 
     this._exampleDatabase.getAllIssues();
 
-
+    //to  filter
     return merge(...displayDataChanges).pipe(map( () => {
-        this.filteredData = this._exampleDatabase.data.slice().filter((issue: Issue) => {
-          const searchStr = (issue.id + issue.title + issue.created_at).toLowerCase();
+          this.filteredData = this._exampleDatabase.data.slice().filter((issue: Issue) => {
+          const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
@@ -179,6 +181,7 @@ export class ExampleDataSource extends DataSource<Issue> {
 
   disconnect() {}
 
+  //to sort
   sortData(data: Issue[]): Issue[] {
     if (!this._sort.active || this._sort.direction === '') {
       return data;
@@ -191,6 +194,7 @@ export class ExampleDataSource extends DataSource<Issue> {
     switch (this._sort.active) {
       case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
       case 'title': [propertyA, propertyB] = [a.title, b.title]; break;
+      case 'body': [propertyA, propertyB] = [a.body, b.body]; break;
       case 'state': [propertyA, propertyB] = [a.state, b.state]; break;
       case 'created_at': [propertyA, propertyB] = [a.created_at, b.created_at]; break;
       case 'updated_at': [propertyA, propertyB] = [a.updated_at, b.updated_at]; break;

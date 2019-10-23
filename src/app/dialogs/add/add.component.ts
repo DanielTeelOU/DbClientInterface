@@ -16,23 +16,24 @@ export class AddComponent {
 
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
+    // Validators.account,
   ]);
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Required field' :
-    this.formControl.hasError('email') ? 'Not a valid email' :
+    this.formControl.hasError('account') ? 'Not a valid account' :
     '';
   }
 
   submit() {
-  // emppty stuff
   }
 
+  //cancel
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  //send to the add function in dataService
   public confirmAdd(): void {
     this.dataService.addIssue(this.data);
   }

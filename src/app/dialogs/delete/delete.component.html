@@ -1,14 +1,18 @@
 <div class="container">
-    <h3 mat-dialog-title>Are you sure?</h3>
+    <h3 mat-dialog-title>Are you sure that you wish to delete?</h3>
+    <!-- quick recap of everything -->
     <div mat-dialog-content>
         ID: {{data.id}}
         <p></p>
         Title: {{data.title}}
         <p></p>
+        Comments: {{data.body}}
+        <p></p>
         Status: {{data.state}}
         <p></p>
     </div>
 
+    <!-- buttons -->
     <div mat-dialog-actions>
         <button mat-button [mat-dialog-close]="1" (click)="confirmDelete()">Delete</button>
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>

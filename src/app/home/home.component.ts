@@ -9,6 +9,7 @@ export class HomeComponent implements OnInit {
 
   login() {
     console.log("login");
+    //TODO: create login functions
   }
 
   constructor() { }

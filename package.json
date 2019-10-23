@@ -1,6 +1,6 @@
 {
-  "name": "db-client-portal",
-  "version": "0.0.0",
+  "name": "assemble-web-app",
+  "version": "0.6.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -14,8 +14,6 @@ Reload data:
 
     <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
         ng update @angular/cli @angular/core
-        <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">
@@ -23,27 +21,37 @@ Reload data:
         <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
         </ng-container>
 
+        <!-- Title column -->
         <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.title}}</mat-cell>
         </ng-container>
 
+        <!-- Comments column -->
+        <ng-container matColumnDef="body">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Comments</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.body}}</mat-cell>
+        </ng-container>
+
+        <!-- Status column -->
         <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.state}}</mat-cell>
         </ng-container>
 
+        <!-- Created at column -->
         <ng-container matColumnDef="created_at">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.created_at}}</mat-cell>
         </ng-container>
 
+        <!-- Updated at column -->
         <ng-container matColumnDef="updated_at">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Updated at</mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.updated_at}}</mat-cell>
         </ng-container>
 
-        <!-- actions -->
+        <!-- buttons -->
         <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>
             <button mat-icon-button color="primary" (click)="addNew()">
@@ -52,11 +60,11 @@ Reload data:
         </mat-header-cell>
 
         <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.state, row.url, row.created_at, row.updated_at)">
+            <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.body, row.state, row.url, row.created_at, row.updated_at)">
             <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
 
-            <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.title, row.state, row.url)">
+            <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.title, row.body, row.state, row.number)">
             <mat-icon aria-label="Delete">delete</mat-icon>
             </button>
         </mat-cell>
@@ -66,15 +74,16 @@ Reload data:
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
-
+    <!-- If empty -->
     <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-        No results
+        No issues. You're a superstar!
     </div>
 
+    <!-- Paginator -->
     <mat-paginator #paginator
                     [length]="dataSource.filteredData.length"
                     [pageIndex]="0"
-                    [pageSize]="10"
+                    [pageSize]="5"
                     [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>
 </div>
