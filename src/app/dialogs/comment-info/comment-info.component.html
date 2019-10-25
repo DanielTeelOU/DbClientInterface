@@ -1,0 +1,13 @@
+<div class="container">
+    <h3 mat-dialog-title>Description</h3>
+    <!-- show the comments for the issue -->
+    <div mat-dialog-content>
+        {{data.title}}
+        <p></p>
+    </div>
+
+    <!-- buttons -->
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Close</button>
+    </div>
+</div>

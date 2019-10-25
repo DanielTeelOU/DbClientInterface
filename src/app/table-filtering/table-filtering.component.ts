@@ -1,17 +1,18 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DataService} from '../services/data.service';
-import {HttpClient} from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {Issue} from '../models/issue';
-import {DataSource} from '@angular/cdk/collections';
-import {AddComponent} from '../dialogs/add/add.component';
-import {EditComponent} from '../dialogs/edit/edit.component';
-import {DeleteComponent} from '../dialogs/delete/delete.component';
-import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Issue } from '../models/issue';
+import { DataSource } from '@angular/cdk/collections';
+import { AddComponent } from '../dialogs/add/add.component';
+import { EditComponent } from '../dialogs/edit/edit.component';
+import { DeleteComponent } from '../dialogs/delete/delete.component';
+import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { trigger, state, animate, transition, style } from '@angular/animations';
+import { CommentInfoComponent } from '../dialogs/comment-info/comment-info.component';
 
 // export interface MyData {
 //   id: number;
@@ -107,6 +108,21 @@ export class TableFilteringComponent implements OnInit {
       if (result === 1) {
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        this.refreshTable();
+      }
+    });
+  }
+
+  showComments(i: number, id: number, title: string, body: string) {
+    this.id = id;
+    this.index = i;
+    console.log(this.index);
+    const dialogRef = this.dialog.open(CommentInfoComponent, {
+      data: {title: title, body: body}
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
         this.refreshTable();
       }
     });

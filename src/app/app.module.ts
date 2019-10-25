@@ -35,6 +35,7 @@ import { GithubupdatesComponent } from './githubupdates/githubupdates.component'
 import { AddComponent } from './dialogs/add/add.component';
 import { DeleteComponent } from './dialogs/delete/delete.component';
 import { EditComponent } from './dialogs/edit/edit.component';
+import { CommentInfoComponent } from './dialogs/comment-info/comment-info.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EditComponent } from './dialogs/edit/edit.component';
     GithubupdatesComponent,
     AddComponent,
     DeleteComponent,
-    EditComponent
+    EditComponent,
+    CommentInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,8 @@ import { EditComponent } from './dialogs/edit/edit.component';
   entryComponents: [
     AddComponent,
     DeleteComponent,
-    EditComponent
+    EditComponent,
+    CommentInfoComponent
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

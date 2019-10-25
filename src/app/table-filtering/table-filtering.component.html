@@ -7,8 +7,8 @@ Reload data:
 <div class="container mat-elevation-z8">
 
     <div class="form">
-        <mat-form-field floatPlaceholder="never" color="accent">
-        <input matInput #filter placeholder="Filter issues">
+        <mat-form-field floatPlaceholder="never" color="primary">
+        <input matInput #filter placeholder="Search">
         </mat-form-field>
     </div>
 
@@ -29,8 +29,12 @@ Reload data:
 
         <!-- Comments column -->
         <ng-container matColumnDef="body">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Comments</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.body}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i=index;">
+            <button mat-icon-button color="accent" (click)="showComments(i, row.id, row.body)">
+            <mat-icon aria-label="Show Comments">fullscreen</mat-icon>
+            </button>
+        </mat-cell>
         </ng-container>
 
         <!-- Status column -->
@@ -42,20 +46,20 @@ Reload data:
         <!-- Created at column -->
         <ng-container matColumnDef="created_at">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.created_at}}</mat-cell>
+        <mat-cell *matCellDef="let row">{{row.created_at}}</mat-cell>
         </ng-container>
 
         <!-- Updated at column -->
         <ng-container matColumnDef="updated_at">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Updated at</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.updated_at}}</mat-cell>
+        <mat-cell *matCellDef="let row">{{row.updated_at}}</mat-cell>
         </ng-container>
 
         <!-- buttons -->
         <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>
             <button mat-icon-button color="primary" (click)="addNew()">
-            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+            <mat-icon aria-label="Add">add</mat-icon>
             </button>
         </mat-header-cell>
 

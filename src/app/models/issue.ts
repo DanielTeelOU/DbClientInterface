@@ -8,4 +8,5 @@ export class Issue {
     updated_at: string;
     url: string;
     number: number;
-  }  
+    open_issues: number;
+  }

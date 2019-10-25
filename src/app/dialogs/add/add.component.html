@@ -22,7 +22,7 @@
       <!-- Comments input -->
       <div class="form">
         <mat-form-field color="accent">
-          <textarea matInput #input class="form-control" placeholder="Comments" [(ngModel)]="data.body" name="body" ></textarea>
+          <textarea matInput #input class="form-control" placeholder="Description" [(ngModel)]="data.body" name="body" ></textarea>
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
@@ -37,18 +37,18 @@
       </div>
   
       <!-- Created at input -->
-      <div class="form">
+      <!-- <div class="form">
         <mat-form-field color="accent">
           <input matInput placeholder="Created at" [(ngModel)]="data.created_at" name="created_at">
         </mat-form-field>
-      </div>
+      </div> -->
   
       <!-- updated at input -->
-      <div class="form">
+      <!-- <div class="form">
         <mat-form-field color="accent">
           <input matInput placeholder="Updated at" [(ngModel)]="data.updated_at" name="updated_at">
         </mat-form-field>
-      </div>
+      </div> -->
   
       <!-- buttons -->
       <div mat-dialog-actions>

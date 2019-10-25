@@ -1,19 +1,45 @@
-/* Structure */
-table {
-    width: 100%;
-    text-align: left;
-  }
+/* Form */
+.container {
+  display: flex;
+  flex-direction: column;
+}
 
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
+/* Toolbar */
+.spacer {
+  flex: 1 1 auto;
+}
 
-  th.mat-sort-header-sorted {
-    color: black;
-  }
-/* 
-::ng-deep .mat-sort-header-container {
-  display:flex;
-  justify-content:center;
-} */
+/* Filter */
+.form {
+  min-height: 56px;
+  max-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  flex-grow: 1;
+  margin-top: 8px;
+}
+
+/* Mat table */
+.no-results {
+  display: flex;
+  justify-content: center;
+  padding: 14px;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.mat-header-cell {
+  flex: 0 0 13.8%;
+}
+
+.mat-cell {
+  flex: 0 0 13.8%;
+}

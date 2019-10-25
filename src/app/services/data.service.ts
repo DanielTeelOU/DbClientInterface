@@ -1,12 +1,16 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Issue} from '../models/issue';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Issue } from '../models/issue';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class DataService {
   //this is the webhook
-  private API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues'; //TODO: make this a variable that users can input
+  private API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
+  private API_URL_ISSUE = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues';
+  private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits';
+  private API_URL_BRANCHES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/branches';
+  private API_URL_MERGES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/merges';
 
   dataChange: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
   dialogData: any;
@@ -23,7 +27,7 @@ export class DataService {
   }
   
   getAllIssues(): void {
-    this.httpClient.get<Issue[]>(this.API_URL).subscribe(data => {
+    this.httpClient.get<Issue[]>(this.API_URL_ISSUE).subscribe(data => {
         this.dataChange.next(data);
       },
       (error: HttpErrorResponse) => {
@@ -44,26 +48,26 @@ export class DataService {
     console.log(id);
   }
 
-//---------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 
 //The following functions will work if it is live with an actual URL/endpoint for the app. As it is now only data can be read
   // addIssue (issue: Issue): void {
-  //   this.httpClient.post(this.API_URL, issue).subscribe(() => {
+  //   this.httpClient.post(this.API_URL_ISSUE, issue).subscribe(() => {
   //     this.dialogData = issue;
   //   })
   // }
 
   // updateIssue (issue: Issue): void {
-  //   this.API_URL = (this.API_URL + '/');
-  //   this.httpClient.put(this.API_URL + issue.number, issue).subscribe(() => {
+  //   this.API_URL = (this.API_URL_ISSUE + '/');
+  //   this.httpClient.put(this.API_URL_ISSUE + issue.number, issue).subscribe(() => {
   //     this.dialogData = issue;
   //   })
   // }
 
   // deleteIssue (number: number): void {
   //   // console.log(id);
-  //   this.API_URL = (this.API_URL + '/');
-  //   this.httpClient.delete(this.API_URL + number)
+  //   this.API_URL_ISSUE = (this.API_URL_ISSUE + '/');
+  //   this.httpClient.delete(this.API_URL_ISSUE + number)
   //   .subscribe(data => {
   //     console.log(data['']);
   //   })
