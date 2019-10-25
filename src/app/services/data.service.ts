@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Issue } from '../models/issue';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { getLocaleDateTimeFormat } from '@angular/common';
+import { update } from '../models/update';
 
 @Injectable()
 export class DataService {
@@ -34,6 +35,15 @@ export class DataService {
       (error: HttpErrorResponse) => {
       console.log (error.name + ' ' + error.message);
       });
+  }
+
+  getAllUpdates(): void {
+    this.httpClient.get<update[]>(this.API_URL_COMMITS).subscribe(data => {
+      this.dataChange.next(this.data);
+    },
+    (error: HttpErrorResponse) => {
+    console.log (error.name + ' ' + error.message);
+    });
   }
 
   //the following functions are for localhost demo, they will not post, put, or delete to the webhook

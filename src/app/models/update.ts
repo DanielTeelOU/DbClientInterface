@@ -1,4 +1,4 @@
-export class update{
+export class update {
     //webhook fields
     commiter: string;
     message: string;
