@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Issue } from '../models/issue';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Injectable()
 export class DataService {
   //this is the webhook
   private API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
   private API_URL_ISSUE = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues';
-  private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits';
+  private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits'; //I think it's best to just show these
   private API_URL_BRANCHES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/branches';
   private API_URL_MERGES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/merges';
 
@@ -38,14 +39,18 @@ export class DataService {
   //the following functions are for localhost demo, they will not post, put, or delete to the webhook
   addIssue (issue: Issue): void {
     this.dialogData = issue;
+    issue.created_at = new Date().toISOString();
+    issue.updated_at = new Date().toISOString();
   }
 
   updateIssue (issue: Issue): void {
     this.dialogData = issue;
+    issue.created_at = issue.updated_at;
+    issue.updated_at = new Date().toISOString();
   }
 
   deleteIssue (id: number): void {
-    console.log(id);
+    //console.log(id);
   }
 
 //--------------------------------------------------------------------------------------------------

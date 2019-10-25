@@ -46,8 +46,8 @@ export class TableFilteringComponent implements OnInit {
 
   //this is what is actually shown in the table
   displayedColumns = ['id', 'title', 'body', 'state', 'created_at', 'updated_at', 'actions'];
-  exampleDatabase: DataService | null;
-  dataSource: ExampleDataSource | null;
+  imaginaryDatabase: DataService | null;
+  dataSource: IssueDataSource | null;
   index: number;
   id: number;
 
@@ -74,7 +74,7 @@ export class TableFilteringComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+        this.imaginaryDatabase.dataChange.value.push(this.dataService.getDialogData());
         this.refreshTable();
       }
     });
@@ -83,15 +83,15 @@ export class TableFilteringComponent implements OnInit {
   startEdit(i: number, id: number, title: string, body: string, state: string, created_at: string, updated_at: string) {
     this.id = id;
     this.index = i;
-    console.log(this.index);
+    //console.log(this.index);
     const dialogRef = this.dialog.open(EditComponent, {
       data: {id: id, title: title, body: body, state: state, created_at: created_at, updated_at: updated_at}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-        this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
+        const foundIndex = this.imaginaryDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        this.imaginaryDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
         this.refreshTable();
       }
     });
@@ -106,8 +106,8 @@ export class TableFilteringComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        const foundIndex = this.imaginaryDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        this.imaginaryDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
       }
     });
@@ -116,7 +116,7 @@ export class TableFilteringComponent implements OnInit {
   showComments(i: number, id: number, title: string, body: string) {
     this.id = id;
     this.index = i;
-    console.log(this.index);
+    //console.log(this.index);
     const dialogRef = this.dialog.open(CommentInfoComponent, {
       data: {title: title, body: body}
     });
@@ -134,8 +134,8 @@ export class TableFilteringComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new DataService(this.httpClient);
-    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
+    this.imaginaryDatabase = new DataService(this.httpClient);
+    this.dataSource = new IssueDataSource(this.imaginaryDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup')
       // .debounceTime(150)
       // .distinctUntilChanged()
@@ -148,7 +148,7 @@ export class TableFilteringComponent implements OnInit {
   }
 }
 
-export class ExampleDataSource extends DataSource<Issue> {
+export class IssueDataSource extends DataSource<Issue> {
   _filterChange = new BehaviorSubject('');
 
   get filter(): string {
@@ -162,7 +162,7 @@ export class ExampleDataSource extends DataSource<Issue> {
   filteredData: Issue[] = [];
   renderedData: Issue[] = [];
 
-  constructor(public _exampleDatabase: DataService,
+  constructor(public _imaginaryDatabase: DataService,
               public _paginator: MatPaginator,
               public _sort: MatSort) {
     super();
@@ -171,17 +171,17 @@ export class ExampleDataSource extends DataSource<Issue> {
 
   connect(): Observable<Issue[]> {
     const displayDataChanges = [
-      this._exampleDatabase.dataChange,
+      this._imaginaryDatabase.dataChange,
       this._sort.sortChange,
       this._filterChange,
       this._paginator.page
     ];
 
-    this._exampleDatabase.getAllIssues();
+    this._imaginaryDatabase.getAllIssues();
 
     //to  filter
     return merge(...displayDataChanges).pipe(map( () => {
-          this.filteredData = this._exampleDatabase.data.slice().filter((issue: Issue) => {
+          this.filteredData = this._imaginaryDatabase.data.slice().filter((issue: Issue) => {
           const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
