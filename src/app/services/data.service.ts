@@ -8,7 +8,8 @@ import { update } from '../models/update';
 @Injectable()
 export class DataService {
   //this is the webhook
-  private API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
+  private API_URL = 'https://smee.io/HtBebTG4VbFgWqC1';
+  //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
   private API_URL_ISSUE = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues';
   private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits'; //I think it's best to just show these
   private API_URL_BRANCHES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/branches';
@@ -73,16 +74,16 @@ export class DataService {
   // }
 
   // updateIssue (issue: Issue): void {
-  //   this.API_URL = (this.API_URL_ISSUE + '/');
-  //   this.httpClient.put(this.API_URL_ISSUE + issue.number, issue).subscribe(() => {
+  //   //this.API_URL_ISSUE = (this.API_URL_ISSUE + '/');
+  //   this.httpClient.put((this.API_URL_ISSUE + '/' + issue.id) + issue.number, issue).subscribe(() => {
   //     this.dialogData = issue;
   //   })
   // }
 
-  // deleteIssue (number: number): void {
+  // deleteIssue (id: number): void {
   //   // console.log(id);
-  //   this.API_URL_ISSUE = (this.API_URL_ISSUE + '/');
-  //   this.httpClient.delete(this.API_URL_ISSUE + number)
+  //   //this.API_URL_ISSUE = (this.API_URL_ISSUE + '/');
+  //   this.httpClient.delete(this.API_URL_ISSUE + '/' + id)
   //   .subscribe(data => {
   //     console.log(data['']);
   //   })
