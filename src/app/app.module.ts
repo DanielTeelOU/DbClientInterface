@@ -4,9 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {DataService} from './services/data.service';
-
+import { HttpClientModule } from '@angular/common/http';
+import { DataService } from './services/data.service';
+import { UpDataService } from "./services/data2.service";
 
 import { 
   MatTableModule, 
@@ -24,7 +24,8 @@ import {
   MatRippleModule,
   MatExpansionModule,
   MatCardModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatDividerModule
 } from '@angular/material';
 
 import { TableFilteringComponent } from './table-filtering/table-filtering.component';
@@ -70,7 +71,8 @@ import { CommentInfoComponent } from './dialogs/comment-info/comment-info.compon
     MatCardModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDividerModule
   ],
   entryComponents: [
     AddComponent,
@@ -78,7 +80,7 @@ import { CommentInfoComponent } from './dialogs/comment-info/comment-info.compon
     EditComponent,
     CommentInfoComponent
   ],
-  providers: [DataService],
+  providers: [DataService, UpDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

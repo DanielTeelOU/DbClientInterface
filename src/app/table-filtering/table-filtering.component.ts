@@ -11,7 +11,6 @@ import { EditComponent } from '../dialogs/edit/edit.component';
 import { DeleteComponent } from '../dialogs/delete/delete.component';
 import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { trigger, state, animate, transition, style } from '@angular/animations';
 import { CommentInfoComponent } from '../dialogs/comment-info/comment-info.component';
 
 // export interface MyData {

@@ -1,6 +1,7 @@
-export class update {
+export class Update {
     //webhook fields
-    commiter: string;
+    id: number;
+    login: string;
     message: string;
-    date: Date;
+    date: string;
 }
