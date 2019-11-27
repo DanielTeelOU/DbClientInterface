@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  login() {
+  enter() {
     console.log("login");
-    //TODO: create login functions
+    //TODO: store the URL for app-wide use
   }
 
   constructor() { }
