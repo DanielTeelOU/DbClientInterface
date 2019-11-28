@@ -9,10 +9,11 @@ import { HomeComponent } from '../home/home.component';
 @Injectable()
 export class DataService {
   //this is the webhook
-  private API_URL = HomeComponent.API_URL;
+  private APP_API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp';
+  //HomeComponent.API_URL;
   //'https://smee.io/HtBebTG4VbFgWqC1';
   //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
-  private API_URL_ISSUE = HomeComponent.API_URL + '/issues';
+  //private API_URL_ISSUE = HomeComponent.API_URL + '/issues';
   //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues';
   private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits'; //I think it's best to just show these
   private API_URL_BRANCHES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/branches';
@@ -33,7 +34,7 @@ export class DataService {
   }
   
   getAllIssues(): void {
-    this.httpClient.get<Issue[]>(HomeComponent.API_URL + '/issues').subscribe(data => {
+    this.httpClient.get<Issue[]>(this.APP_API_URL + '/issues').subscribe(data => {
         this.dataChange.next(data);
       },
       (error: HttpErrorResponse) => {

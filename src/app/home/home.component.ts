@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { string } from 'prop-types';
+import { TableFilteringComponent } from '../table-filtering/table-filtering.component';
+import { GithubupdatesComponent } from '../githubupdates/githubupdates.component';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +10,19 @@ import { string } from 'prop-types';
 })
 
 export class HomeComponent implements OnInit {
-  public USER_API_URL: string;
-  static API_URL: any;
+  //public USER_API_URL: string;
+  public USER_API_URL: any;
 
   //gets the API url for use across the app
   enter() {
     console.log(this.USER_API_URL);
-    HomeComponent.API_URL = this.USER_API_URL;
-    console.log(HomeComponent.API_URL);
+    //HomeComponent.API_URL = this.USER_API_URL;
+    //console.log(HomeComponent.API_URL);
+    //TableFilteringComponent.refresh();
+  }
+
+  reload(response: boolean){
+    window.location.reload(true)
   }
 
   constructor() { }

@@ -65,7 +65,7 @@ export class TableFilteringComponent implements OnInit {
     this.loadData();
   }
 
-  refresh() {
+  public static refresh() {
     this.loadData();
   }
 
