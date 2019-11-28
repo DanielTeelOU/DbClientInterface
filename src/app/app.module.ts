@@ -37,6 +37,7 @@ import { AddComponent } from './dialogs/add/add.component';
 import { DeleteComponent } from './dialogs/delete/delete.component';
 import { EditComponent } from './dialogs/edit/edit.component';
 import { CommentInfoComponent } from './dialogs/comment-info/comment-info.component';
+import { ApipopupComponent } from './dialogs/apipopup/apipopup.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { CommentInfoComponent } from './dialogs/comment-info/comment-info.compon
     AddComponent,
     DeleteComponent,
     EditComponent,
-    CommentInfoComponent
+    CommentInfoComponent,
+    ApipopupComponent
   ],
   imports: [
     BrowserModule,

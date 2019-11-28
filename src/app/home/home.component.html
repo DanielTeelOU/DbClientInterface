@@ -11,7 +11,7 @@
     <p>Welcome to Assemble!</p>
     <!-- <p>To get started create a webhook in your Github repository and connect it here.</p> -->
     <mat-form-field>
-        <input matInput placeholder="Github webhook">
+        <input type="text" id="USER_API_URL" name="USER_API_URL" [(ngModel)]="USER_API_URL" matInput placeholder="Github webhook" style="flex: 80%;">
     </mat-form-field>
     <button mat-button (click)="enter()" mat-flat-button color="primary" style="margin: 5px;">
         Enter

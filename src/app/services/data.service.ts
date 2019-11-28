@@ -4,13 +4,16 @@ import { Issue } from '../models/issue';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { getLocaleDateTimeFormat } from '@angular/common';
 import { Update } from '../models/update';
+import { HomeComponent } from '../home/home.component';
 
 @Injectable()
 export class DataService {
   //this is the webhook
-  private API_URL = 'https://smee.io/HtBebTG4VbFgWqC1';
+  private API_URL = HomeComponent.API_URL;
+  //'https://smee.io/HtBebTG4VbFgWqC1';
   //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
-  private API_URL_ISSUE = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues';
+  private API_URL_ISSUE = HomeComponent.API_URL + '/issues';
+  //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues';
   private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits'; //I think it's best to just show these
   private API_URL_BRANCHES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/branches';
   private API_URL_MERGES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/merges';
@@ -30,7 +33,7 @@ export class DataService {
   }
   
   getAllIssues(): void {
-    this.httpClient.get<Issue[]>(this.API_URL_ISSUE).subscribe(data => {
+    this.httpClient.get<Issue[]>(HomeComponent.API_URL + '/issues').subscribe(data => {
         this.dataChange.next(data);
       },
       (error: HttpErrorResponse) => {

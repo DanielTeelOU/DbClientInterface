@@ -42,6 +42,9 @@ import { CommentInfoComponent } from '../dialogs/comment-info/comment-info.compo
   styleUrls: ['./table-filtering.component.css']
 })
 export class TableFilteringComponent implements OnInit {
+  static loadData() {
+    throw new Error("Method not implemented.");
+  }
 
   //this is what is actually shown in the table
   displayedColumns = ['id', 'title', 'body', 'state', 'created_at', 'updated_at', 'actions'];
