@@ -7,11 +7,7 @@ import { Update } from '../models/update';
 @Injectable()
 export class UpDataService {
   //this is the webhook
-  private API_URL = 'https://smee.io/HtBebTG4VbFgWqC1';
-  //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
-  private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits'; //I think it's best to just show these
-  private API_URL_BRANCHES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/branches';
-  private API_URL_MERGES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/merges';
+  private API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
 
   dataChange: BehaviorSubject<Update[]> = new BehaviorSubject<Update[]>([]);
 
@@ -23,7 +19,7 @@ export class UpDataService {
   }
 
   getAllUpdates(): void {
-    this.httpClient.get<Update[]>(this.API_URL_COMMITS).subscribe(data => {
+    this.httpClient.get<Update[]>(this.API_URL + '/commits').subscribe(data => {
       this.dataChange.next(data);
     },
     (error: HttpErrorResponse) => {

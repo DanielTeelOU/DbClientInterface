@@ -13,9 +13,9 @@ import { map } from 'rxjs/operators';
   templateUrl: './githubupdates.component.html',
   styleUrls: ['./githubupdates.component.css']
 })
+//connect this to the webhook as well to show pushes
 export class GithubupdatesComponent implements OnInit {
 
-  //connect this to the webhook as well to show pushes, commmits, and merges
   //this is what is actually shown in the table
   displayedColumns = ['html_url', 'actions'];
   imaginaryDatabase2: UpDataService | null;
@@ -52,6 +52,7 @@ export class GithubupdatesComponent implements OnInit {
       });
   }
 
+  //reroute to commit url
   visit(i: number, html_url: string) {
     this.index = i;
     //location.href = html_url;
@@ -59,6 +60,7 @@ export class GithubupdatesComponent implements OnInit {
   }
 }
 
+//this class fetches the data from the API, enables filtering and pagination
 export class UpdateDataSource extends DataSource<Update> {
   _filterChange = new BehaviorSubject('');
 
