@@ -17,7 +17,7 @@ export class GithubupdatesComponent implements OnInit {
 
   //connect this to the webhook as well to show pushes, commmits, and merges
   //this is what is actually shown in the table
-  displayedColumns = ['date', 'login', 'message'];
+  displayedColumns = ['html_url', 'actions'];
   imaginaryDatabase2: UpDataService | null;
   dataSource: UpdateDataSource | null;
   index: number;
@@ -38,10 +38,6 @@ export class GithubupdatesComponent implements OnInit {
     this.loadData();
   }
 
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
-
   public loadData() {
     this.imaginaryDatabase2 = new UpDataService(this.httpClient);
     this.dataSource = new UpdateDataSource(this.imaginaryDatabase2, this.paginator, this.sort);
@@ -54,6 +50,12 @@ export class GithubupdatesComponent implements OnInit {
         }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
+  }
+
+  visit(i: number, html_url: string) {
+    this.index = i;
+    //location.href = html_url;
+    window.open(html_url, '_blank');
   }
 }
 
@@ -91,7 +93,7 @@ export class UpdateDataSource extends DataSource<Update> {
     //to  filter
     return merge(...displayDataChanges).pipe(map( () => {
       this.filteredData = this._imaginaryDatabase2.data.slice().filter((update: Update) => {
-          const searchStr = (update.date + update.login + update.message).toString().toLowerCase();
+          const searchStr = (update.html_url).toString().toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
@@ -117,9 +119,9 @@ export class UpdateDataSource extends DataSource<Update> {
       let propertyB: number | string = '';
 
     switch (this._sort.active) {
-      case 'date': [propertyA, propertyB] = [a.date, b.date]; break;
-      case 'login': [propertyA, propertyB] = [a.login, b.login]; break;
-      case 'message': [propertyA, propertyB] = [a.message, b.message]; break;
+      // case 'committer': [propertyA, propertyB] = [a.date, b.date]; break;
+      // case 'commit': [propertyA, propertyB] = [a.login, b.login]; break;
+      case 'html_url': [propertyA, propertyB] = [a.message, b.message]; break;
     }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

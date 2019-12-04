@@ -1,20 +1,20 @@
 <div style="text-align: center;">
     <div>
         <p></p>
-        <img  src="https://cdn2.iconfinder.com/data/icons/mathematics-geometry/512/round-a-letter-greek-latin-alphabet-512.png" height="295" width="295" border="3" alt="logo">
-        <!-- <img [src]="../../../images/favicon_io/NewLogo.jpg" height="280" width="280"> -->
+        <!-- <img  src="https://cdn2.iconfinder.com/data/icons/mathematics-geometry/512/round-a-letter-greek-latin-alphabet-512.png" height="295" width="295" border="3" alt="logo"> -->
+        <img src="assets/NewLogo.jpeg" height="280" width="280">
     </div>
     <h1>Assemble</h1>
+    <p>Your team facilitator</p>
     <p>Version 0.8.1</p>
     <!-- <button mat-button (click)="login()" mat-flat-button color="primary">
         Login
     </button> -->
-    <p>Welcome to Assemble!</p>
     <!-- <p>To get started create a webhook in your Github repository and connect it here.</p> -->
     <mat-form-field>
-        <input type="text" id="USER_API_URL" name="USER_API_URL" [(ngModel)]="USER_API_URL" matInput placeholder="Github webhook" style="flex: 80%;">
+        <input type="text" id="USER_API_URL" name="USER_API_URL" [(ngModel)]="USER_API_URL" matInput placeholder="Github webhook" style="flex: 80%;" disabled>
     </mat-form-field>
-    <button mat-button (click)="enter()" mat-flat-button color="primary" style="margin: 5px;">
+    <button mat-button (click)="enter()" mat-flat-button color="primary" style="margin: 5px;" disabled>
         Enter
     </button>
     <footer class="footer">

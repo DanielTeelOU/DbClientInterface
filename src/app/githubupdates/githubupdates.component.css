@@ -1,4 +1,4 @@
-/* Form */
+Form
 .container {
     display: flex;
     flex-direction: column;
@@ -37,10 +37,10 @@
   }
   
   .mat-header-cell {
-    flex: 0 0 13.8%;
+    flex: 0 0 78%;
   }
   
   .mat-cell {
-    flex: 0 0 13.8%;
+    flex: 0 0 80%;
   }
   
