@@ -1,7 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { string } from 'prop-types';
-import { TableFilteringComponent } from '../table-filtering/table-filtering.component';
-import { GithubupdatesComponent } from '../githubupdates/githubupdates.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +18,7 @@ export class HomeComponent implements OnInit {
     //TableFilteringComponent.refresh();
   }
 
-  reload(response: boolean){
+  reload(){
     window.location.reload(true)
   }
 
