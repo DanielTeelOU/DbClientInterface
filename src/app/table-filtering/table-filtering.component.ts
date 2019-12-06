@@ -13,29 +13,6 @@ import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CommentInfoComponent } from '../dialogs/comment-info/comment-info.component';
 
-// export interface MyData {
-//   id: number;
-//   priority: string;
-//   description: string;
-//   status: string;
-//   createDate: string;
-//   closeDate: string;
-//   actions: string;
-// }
-
-// let TABLE_DATA: MyData[] = [
-//   {id: 1, priority: 'urgent', description: 'error1', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 2, priority: 'urgent', description: 'error2', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 3, priority: 'medium', description: 'error3', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 4, priority: 'low', description: 'error4', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 5, priority: 'medium', description: 'error5', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 6, priority: 'low', description: 'error6', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 7, priority: 'urgent', description: 'error7', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 8, priority: 'low', description: 'error8', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 9, priority: 'low', description: 'error9', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-//   {id: 10, priority: 'low', description: 'error10', status: 'open', createDate: '09/27/2019', closeDate: 'N/A', actions: ''},
-// ];
-
 @Component({
   selector: 'app-table-filtering',
   templateUrl: './table-filtering.component.html',
@@ -69,6 +46,7 @@ export class TableFilteringComponent implements OnInit {
     this.loadData();
   }
 
+  //reroute to add pop-up
   addNew(issue: Issue) {
     const dialogRef = this.dialog.open(AddComponent, {
       data: {issue: issue }
@@ -82,6 +60,7 @@ export class TableFilteringComponent implements OnInit {
     });
   }
 
+  //reroute to edit pop-up
   startEdit(i: number, id: number, title: string, body: string, state: string, created_at: string, updated_at: string) {
     this.id = id;
     this.index = i;
@@ -99,6 +78,7 @@ export class TableFilteringComponent implements OnInit {
     });
   }
 
+  //reroute to delete pop-up
   deleteItem(i: number, id: number, title: string, body: string, state: string, number: number) {
     this.index = i;
     this.id = id;
@@ -114,7 +94,8 @@ export class TableFilteringComponent implements OnInit {
       }
     });
   }
-
+  
+  //reroute to show pop-up
   showComments(i: number, id: number, title: string, body: string) {
     this.id = id;
     this.index = i;
@@ -150,6 +131,7 @@ export class TableFilteringComponent implements OnInit {
   }
 }
 
+//fetch data from API, enable filtering and pagination
 export class IssueDataSource extends DataSource<Issue> {
   _filterChange = new BehaviorSubject('');
 

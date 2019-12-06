@@ -10,14 +10,6 @@ import { HomeComponent } from '../home/home.component';
 export class DataService {
   //this is the webhook
   private APP_API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp';
-  //HomeComponent.API_URL;
-  //'https://smee.io/HtBebTG4VbFgWqC1';
-  //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
-  //private API_URL_ISSUE = HomeComponent.API_URL + '/issues';
-  //'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/issues';
-  private API_URL_COMMITS = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/commits'; //I think it's best to just show these
-  private API_URL_BRANCHES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/branches';
-  private API_URL_MERGES = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp/merges';
 
   dataChange: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
   dialogData: any;

@@ -1,5 +1,5 @@
 export class Update {
-    //webhook fields
+    //data fields to be pulled
     id: number;
     login: string;
     message: string;
