@@ -10,7 +10,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class EditComponent {
   constructor(public dialogRef: MatDialogRef<EditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
+              @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
 
   formControl = new FormControl('', [
     Validators.required
@@ -26,12 +26,12 @@ export class EditComponent {
   submit() {
   }
 
-  //cancel
+  // cancel
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  //send to update dataService function
+  // send to update dataService function
   stopEdit(): void {
     this.dataService.updateIssue(this.data);
   }

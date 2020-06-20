@@ -1,5 +1,6 @@
 export class Update {
-    //data fields to be pulled
+    // data fields to be pulled
+    // tslint:disable:variable-name
     id: number;
     login: string;
     message: string;
@@ -7,4 +8,5 @@ export class Update {
     commit: string;
     committer: string;
     html_url: string;
+    // tslint:enable:variable-name
 }

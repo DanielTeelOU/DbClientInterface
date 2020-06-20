@@ -6,14 +6,14 @@ import { Update } from '../models/update';
 
 @Injectable()
 export class UpDataService {
-  //this is the webhook
-  private API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; //TODO: make this a variable that users can input
+  // this is the webhook
+  private API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp'; // TODO: make this a variable that users can input
 
   dataChange: BehaviorSubject<Update[]> = new BehaviorSubject<Update[]>([]);
 
-  constructor (private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-  //pulls from webhook for repo
+  // pulls from webhook for repo
   get data(): Update[] {
     return this.dataChange.value;
   }

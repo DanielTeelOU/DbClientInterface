@@ -8,16 +8,16 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./delete.component.css']
 })
 export class DeleteComponent {
-  
-  constructor(public dialogRef: MatDialogRef<DeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
 
-  //cancel
+  constructor(public dialogRef: MatDialogRef<DeleteComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
+
+  // cancel
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  //send to delete dataService function
+  // send to delete dataService function
   confirmDelete(): void {
     this.dataService.deleteIssue(this.data.number);
   }

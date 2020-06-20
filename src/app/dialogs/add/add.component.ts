@@ -11,8 +11,8 @@ import { Issue } from '../../models/issue';
 })
 export class AddComponent {
   constructor(public dialogRef: MatDialogRef<AddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Issue,
-    public dataService: DataService) { }
+              @Inject(MAT_DIALOG_DATA) public data: Issue,
+              public dataService: DataService) { }
 
   formControl = new FormControl('', [
     Validators.required
@@ -28,12 +28,12 @@ export class AddComponent {
   submit() {
   }
 
-  //cancel
+  // cancel
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  //send to the add function in dataService
+  // send to the add function in dataService
   public confirmAdd(): void {
     this.dataService.addIssue(this.data);
   }

@@ -19,24 +19,24 @@ import { CommentInfoComponent } from '../dialogs/comment-info/comment-info.compo
   styleUrls: ['./table-filtering.component.css']
 })
 export class TableFilteringComponent implements OnInit {
-  static loadData() {
-    throw new Error("Method not implemented.");
-  }
 
-  //this is what is actually shown in the table
+  constructor(public httpClient: HttpClient,
+              public dialog: MatDialog,
+              public dataService: DataService) {}
+
+  // this is what is actually shown in the table
   displayedColumns = ['id', 'title', 'body', 'state', 'created_at', 'updated_at', 'actions'];
   imaginaryDatabase: DataService | null;
   dataSource: IssueDataSource | null;
   index: number;
   id: number;
 
-  constructor(public httpClient: HttpClient,
-              public dialog: MatDialog,
-              public dataService: DataService) {}
-
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filter',  {static: true}) filter: ElementRef;
+  static loadData() {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit() {
     this.loadData();
@@ -46,10 +46,11 @@ export class TableFilteringComponent implements OnInit {
     this.loadData();
   }
 
-  //reroute to add pop-up
-  addNew(issue: Issue) {
+  // reroute to add pop-up
+  addNew() {
+    const issue: Issue = new Issue();
     const dialogRef = this.dialog.open(AddComponent, {
-      data: {issue: issue }
+      data: { issue }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -60,13 +61,14 @@ export class TableFilteringComponent implements OnInit {
     });
   }
 
-  //reroute to edit pop-up
+  // reroute to edit pop-up
+  // tslint:disable-next-line:variable-name
   startEdit(i: number, id: number, title: string, body: string, state: string, created_at: string, updated_at: string) {
     this.id = id;
     this.index = i;
-    //console.log(this.index);
+    // console.log(this.index);
     const dialogRef = this.dialog.open(EditComponent, {
-      data: {id: id, title: title, body: body, state: state, created_at: created_at, updated_at: updated_at}
+      data: {id, title, body, state, created_at, updated_at}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -78,12 +80,13 @@ export class TableFilteringComponent implements OnInit {
     });
   }
 
-  //reroute to delete pop-up
+  // reroute to delete pop-up
+  // tslint:disable-next-line:variable-name
   deleteItem(i: number, id: number, title: string, body: string, state: string, number: number) {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {id: id, title: title, body: body, state: state, number: number}
+      data: { id, title, body, state, number }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -94,16 +97,16 @@ export class TableFilteringComponent implements OnInit {
       }
     });
   }
-  
-  //reroute to show pop-up
+
+  // reroute to show pop-up
   showComments(i: number, id: number, title: string, body: string) {
     this.id = id;
     this.index = i;
-    //console.log(this.index);
+    // console.log(this.index);
     const dialogRef = this.dialog.open(CommentInfoComponent, {
-      data: {title: title, body: body}
+      data: {title, body}
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         this.refreshTable();
@@ -131,8 +134,9 @@ export class TableFilteringComponent implements OnInit {
   }
 }
 
-//fetch data from API, enable filtering and pagination
+// fetch data from API, enable filtering and pagination
 export class IssueDataSource extends DataSource<Issue> {
+  // tslint:disable-next-line:variable-name
   _filterChange = new BehaviorSubject('');
 
   get filter(): string {
@@ -146,12 +150,14 @@ export class IssueDataSource extends DataSource<Issue> {
   filteredData: Issue[] = [];
   renderedData: Issue[] = [];
 
+  // tslint:disable:variable-name
   constructor(public _imaginaryDatabase: DataService,
               public _paginator: MatPaginator,
               public _sort: MatSort) {
     super();
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
+  // tslint:enable:variable-name
 
   connect(): Observable<Issue[]> {
     const displayDataChanges = [
@@ -163,25 +169,25 @@ export class IssueDataSource extends DataSource<Issue> {
 
     this._imaginaryDatabase.getAllIssues();
 
-    //to  filter
+    // to  filter
     return merge(...displayDataChanges).pipe(map( () => {
           this.filteredData = this._imaginaryDatabase.data.slice().filter((issue: Issue) => {
           const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
-        const sortedData = this.sortData(this.filteredData.slice());
+          const sortedData = this.sortData(this.filteredData.slice());
 
-        const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-        this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
-        return this.renderedData;
+          const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+          this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+          return this.renderedData;
       }
     ));
   }
 
   disconnect() {}
 
-  //to sort
+  // to sort
   sortData(data: Issue[]): Issue[] {
     if (!this._sort.active || this._sort.direction === '') {
       return data;
@@ -191,7 +197,7 @@ export class IssueDataSource extends DataSource<Issue> {
       let propertyA: number | string = '';
       let propertyB: number | string = '';
 
-    switch (this._sort.active) {
+      switch (this._sort.active) {
       case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
       case 'title': [propertyA, propertyB] = [a.title, b.title]; break;
       case 'body': [propertyA, propertyB] = [a.body, b.body]; break;

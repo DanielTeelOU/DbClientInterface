@@ -3,7 +3,7 @@ Reload data:
 <button mat-icon-button (click)="refresh()">
     <mat-icon>refresh</mat-icon>
 </button>
-      
+
 <div class="container mat-elevation-z8">
 
     <div class="form">
@@ -31,7 +31,7 @@ Reload data:
         <ng-container matColumnDef="body">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
         <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="accent" (click)="showComments(i, row.id, row.body)">
+            <button mat-icon-button color="accent" (click)="showComments(i, row.id, row.title, row.body)">
             <mat-icon aria-label="Show Comments">fullscreen</mat-icon>
             </button>
         </mat-cell>
@@ -64,7 +64,7 @@ Reload data:
         </mat-header-cell>
 
         <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.body, row.state, row.url, row.created_at, row.updated_at)">
+            <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.body, row.state, row.created_at, row.updated_at)">
             <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
 

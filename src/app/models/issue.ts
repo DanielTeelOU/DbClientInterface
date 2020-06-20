@@ -1,6 +1,7 @@
-//overarching class so that all the fields can be used wherever they are needed
+// overarching class so that all the fields can be used wherever they are needed
 export class Issue {
-  //data fields to be pulled
+    // data fields to be pulled
+    // tslint:disable:variable-name
     id: number;
     title: string;
     body: string;
@@ -10,4 +11,5 @@ export class Issue {
     url: string;
     number: number;
     open_issues: number;
-  }
+    // tslint:enable:variable-name
+}

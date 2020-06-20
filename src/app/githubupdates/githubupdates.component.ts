@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UpDataService } from "../services/data2.service";
+import { UpDataService } from '../services/data2.service';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,10 +13,10 @@ import { map } from 'rxjs/operators';
   templateUrl: './githubupdates.component.html',
   styleUrls: ['./githubupdates.component.css']
 })
-//connect this to the webhook as well to show pushes
+// connect this to the webhook as well to show pushes
 export class GithubupdatesComponent implements OnInit {
 
-  //this is what is actually shown in the table
+  // this is what is actually shown in the table
   displayedColumns = ['html_url', 'actions'];
   imaginaryDatabase2: UpDataService | null;
   dataSource: UpdateDataSource | null;
@@ -24,7 +24,7 @@ export class GithubupdatesComponent implements OnInit {
   id: number;
 
   constructor(public httpClient: HttpClient,
-    public dataService: UpDataService) { }
+              public dataService: UpDataService) { }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -52,16 +52,18 @@ export class GithubupdatesComponent implements OnInit {
       });
   }
 
-  //reroute to commit url
+  // reroute to commit url
+  // tslint:disable-next-line:variable-name
   visit(i: number, html_url: string) {
     this.index = i;
-    //location.href = html_url;
+    // location.href = html_url;
     window.open(html_url, '_blank');
   }
 }
 
-//this class fetches the data from the API, enables filtering and pagination
+// this class fetches the data from the API, enables filtering and pagination
 export class UpdateDataSource extends DataSource<Update> {
+  // tslint:disable-next-line:variable-name
   _filterChange = new BehaviorSubject('');
 
   get filter(): string {
@@ -75,12 +77,14 @@ export class UpdateDataSource extends DataSource<Update> {
   filteredData: Update[] = [];
   renderedData: Update[] = [];
 
+  // tslint:disable:variable-name
   constructor(public _imaginaryDatabase2: UpDataService,
               public _paginator: MatPaginator,
               public _sort: MatSort) {
     super();
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
+  // tslint:enable:variable-name
 
   connect(): Observable<Update[]> {
     const displayDataChanges = [
@@ -92,25 +96,25 @@ export class UpdateDataSource extends DataSource<Update> {
 
     this._imaginaryDatabase2.getAllUpdates();
 
-    //to  filter
+    // to  filter
     return merge(...displayDataChanges).pipe(map( () => {
       this.filteredData = this._imaginaryDatabase2.data.slice().filter((update: Update) => {
           const searchStr = (update.html_url).toString().toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
-        const sortedData = this.sortData(this.filteredData.slice());
+      const sortedData = this.sortData(this.filteredData.slice());
 
-        const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-        this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
-        return this.renderedData;
+      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+      this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+      return this.renderedData;
       }
     ));
   }
 
   disconnect() {}
 
-  //to sort
+  // to sort
   sortData(data: Update[]): Update[] {
     if (!this._sort.active || this._sort.direction === '') {
       return data;
@@ -120,7 +124,7 @@ export class UpdateDataSource extends DataSource<Update> {
       let propertyA: number | string = '';
       let propertyB: number | string = '';
 
-    switch (this._sort.active) {
+      switch (this._sort.active) {
       // case 'committer': [propertyA, propertyB] = [a.date, b.date]; break;
       // case 'commit': [propertyA, propertyB] = [a.login, b.login]; break;
       case 'html_url': [propertyA, propertyB] = [a.message, b.message]; break;

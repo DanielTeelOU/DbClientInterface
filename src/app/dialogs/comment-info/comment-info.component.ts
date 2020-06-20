@@ -10,9 +10,9 @@ import {DataService} from '../../services/data.service';
 export class CommentInfoComponent {
 
   constructor(public dialogRef: MatDialogRef<CommentInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
+              @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
 
-  //cancel
+  // cancel
   onNoClick(): void {
     this.dialogRef.close();
   }

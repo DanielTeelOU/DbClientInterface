@@ -1,4 +1,4 @@
-//app.component.ts
+// app.component.ts
 import { Component, ViewChild } from '@angular/core';
 
 @Component({
@@ -8,6 +8,6 @@ import { Component, ViewChild } from '@angular/core';
 })
 
 export class AppComponent {
-  
+
 
 }

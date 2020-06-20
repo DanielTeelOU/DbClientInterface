@@ -8,15 +8,15 @@ import { HomeComponent } from '../home/home.component';
 
 @Injectable()
 export class DataService {
-  //this is the webhook
+  // this is the webhook
   private APP_API_URL = 'https://api.github.com/repos/DanielTeelOU/AssembleWebApp';
 
   dataChange: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
   dialogData: any;
 
-  constructor (private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-  //pulls from webhook for repo
+  // pulls from webhook for repo
   get data(): Issue[] {
     return this.dataChange.value;
   }
@@ -24,7 +24,7 @@ export class DataService {
   getDialogData() {
     return this.dialogData;
   }
-  
+
   getAllIssues(): void {
     this.httpClient.get<Issue[]>(this.APP_API_URL + '/issues').subscribe(data => {
         this.dataChange.next(data);
@@ -34,26 +34,26 @@ export class DataService {
       });
   }
 
-  //the following functions are for localhost demo, they will not post, put, or delete to the webhook
-  addIssue (issue: Issue): void {
+  // the following functions are for localhost demo, they will not post, put, or delete to the webhook
+  addIssue(issue: Issue): void {
     this.dialogData = issue;
     issue.created_at = new Date().toISOString();
     issue.updated_at = new Date().toISOString();
   }
 
-  updateIssue (issue: Issue): void {
+  updateIssue(issue: Issue): void {
     this.dialogData = issue;
     issue.created_at = issue.updated_at;
     issue.updated_at = new Date().toISOString();
   }
 
-  deleteIssue (id: number): void {
-    //console.log(id);
+  deleteIssue(id: number): void {
+    // console.log(id);
   }
 
-//--------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------
 
-//The following functions will work if it is live with an actual URL/endpoint for the app. As it is now only data can be read
+// The following functions will work if it is live with an actual URL/endpoint for the app. As it is now only data can be read
   // addIssue (issue: Issue): void {
   //   this.httpClient.post(this.API_URL_ISSUE, issue).subscribe(() => {
   //     this.dialogData = issue;
