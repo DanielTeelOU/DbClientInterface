@@ -1,5 +1,6 @@
 # AssembleWebApp
 
+CSI 3370 Project (Software Engineering and Practice).
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.4. Run npm install to install all dependencies.
 
 ## Development server
