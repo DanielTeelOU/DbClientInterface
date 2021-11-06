@@ -1,4 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { DataService } from '../services/data.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +14,12 @@ import { DataSource } from '@angular/cdk/collections';
 import { AddComponent } from '../dialogs/add/add.component';
 import { EditComponent } from '../dialogs/edit/edit.component';
 import { DeleteComponent } from '../dialogs/delete/delete.component';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  fromEvent,
+  merge,
+  Observable
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CommentInfoComponent } from '../dialogs/comment-info/comment-info.component';
 
@@ -21,8 +31,8 @@ import { CommentInfoComponent } from '../dialogs/comment-info/comment-info.compo
 export class TableFilteringComponent implements OnInit {
 
   constructor(public httpClient: HttpClient,
-              public dialog: MatDialog,
-              public dataService: DataService) {}
+    public dialog: MatDialog,
+    public dataService: DataService) {}
 
   // this is what is actually shown in the table
   displayedColumns = ['id', 'title', 'body', 'state', 'created_at', 'updated_at', 'actions'];
@@ -31,9 +41,15 @@ export class TableFilteringComponent implements OnInit {
   index: number;
   id: number;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild('filter',  {static: true}) filter: ElementRef;
+  @ViewChild(MatPaginator, {
+    static: true
+  }) paginator: MatPaginator;
+  @ViewChild(MatSort, {
+    static: true
+  }) sort: MatSort;
+  @ViewChild('filter', {
+    static: true
+  }) filter: ElementRef;
   static loadData() {
     throw new Error('Method not implemented.');
   }
@@ -50,7 +66,9 @@ export class TableFilteringComponent implements OnInit {
   addNew() {
     const issue: Issue = new Issue();
     const dialogRef = this.dialog.open(AddComponent, {
-      data: { issue }
+      data: {
+        issue
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -68,7 +86,14 @@ export class TableFilteringComponent implements OnInit {
     this.index = i;
     // console.log(this.index);
     const dialogRef = this.dialog.open(EditComponent, {
-      data: {id, title, body, state, created_at, updated_at}
+      data: {
+        id,
+        title,
+        body,
+        state,
+        created_at,
+        updated_at
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -86,7 +111,13 @@ export class TableFilteringComponent implements OnInit {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: { id, title, body, state, number }
+      data: {
+        id,
+        title,
+        body,
+        state,
+        number
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -104,7 +135,10 @@ export class TableFilteringComponent implements OnInit {
     this.index = i;
     // console.log(this.index);
     const dialogRef = this.dialog.open(CommentInfoComponent, {
-      data: {title, body}
+      data: {
+        title,
+        body
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -135,7 +169,7 @@ export class TableFilteringComponent implements OnInit {
 }
 
 // fetch data from API, enable filtering and pagination
-export class IssueDataSource extends DataSource<Issue> {
+export class IssueDataSource extends DataSource < Issue > {
   // tslint:disable-next-line:variable-name
   _filterChange = new BehaviorSubject('');
 
@@ -152,14 +186,14 @@ export class IssueDataSource extends DataSource<Issue> {
 
   // tslint:disable:variable-name
   constructor(public _imaginaryDatabase: DataService,
-              public _paginator: MatPaginator,
-              public _sort: MatSort) {
+    public _paginator: MatPaginator,
+    public _sort: MatSort) {
     super();
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
   // tslint:enable:variable-name
 
-  connect(): Observable<Issue[]> {
+  connect(): Observable < Issue[] > {
     const displayDataChanges = [
       this._imaginaryDatabase.dataChange,
       this._sort.sortChange,
@@ -170,19 +204,18 @@ export class IssueDataSource extends DataSource<Issue> {
     this._imaginaryDatabase.getAllIssues();
 
     // to  filter
-    return merge(...displayDataChanges).pipe(map( () => {
-          this.filteredData = this._imaginaryDatabase.data.slice().filter((issue: Issue) => {
-          const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
-          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-        });
+    return merge(...displayDataChanges).pipe(map(() => {
+      this.filteredData = this._imaginaryDatabase.data.slice().filter((issue: Issue) => {
+        const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
+        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+      });
 
-          const sortedData = this.sortData(this.filteredData.slice());
+      const sortedData = this.sortData(this.filteredData.slice());
 
-          const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-          this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
-          return this.renderedData;
-      }
-    ));
+      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+      this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+      return this.renderedData;
+    }));
   }
 
   disconnect() {}
@@ -198,13 +231,25 @@ export class IssueDataSource extends DataSource<Issue> {
       let propertyB: number | string = '';
 
       switch (this._sort.active) {
-      case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
-      case 'title': [propertyA, propertyB] = [a.title, b.title]; break;
-      case 'body': [propertyA, propertyB] = [a.body, b.body]; break;
-      case 'state': [propertyA, propertyB] = [a.state, b.state]; break;
-      case 'created_at': [propertyA, propertyB] = [a.created_at, b.created_at]; break;
-      case 'updated_at': [propertyA, propertyB] = [a.updated_at, b.updated_at]; break;
-    }
+        case 'id':
+          [propertyA, propertyB] = [a.id, b.id];
+          break;
+        case 'title':
+          [propertyA, propertyB] = [a.title, b.title];
+          break;
+        case 'body':
+          [propertyA, propertyB] = [a.body, b.body];
+          break;
+        case 'state':
+          [propertyA, propertyB] = [a.state, b.state];
+          break;
+        case 'created_at':
+          [propertyA, propertyB] = [a.created_at, b.created_at];
+          break;
+        case 'updated_at':
+          [propertyA, propertyB] = [a.updated_at, b.updated_at];
+          break;
+      }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

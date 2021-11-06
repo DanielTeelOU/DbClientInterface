@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +22,11 @@ export class HomeComponent implements OnInit {
   }
 
   reload() {
-    window.location.reload(true);
+    window.location.reload();
   }
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

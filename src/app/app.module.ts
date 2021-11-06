@@ -78,7 +78,12 @@ import { ApipopupComponent } from './dialogs/apipopup/apipopup.component';
     EditComponent,
     CommentInfoComponent
   ],
-  providers: [DataService, UpDataService],
-  bootstrap: [AppComponent]
+  providers: [
+    DataService,
+    UpDataService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

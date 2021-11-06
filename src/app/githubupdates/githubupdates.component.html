@@ -3,12 +3,12 @@ Reload data:
 <button mat-icon-button (click)="refresh()">
     <mat-icon>refresh</mat-icon>
 </button>
-      
+
 <div class="container mat-elevation-z8">
 
     <div class="form">
         <mat-form-field floatPlaceholder="never" color="primary">
-        <input matInput #filter placeholder="Search">
+            <input matInput #filter placeholder="Search">
         </mat-form-field>
     </div>
 
@@ -17,15 +17,15 @@ Reload data:
 
         <!-- Date Column -->
         <!-- <ng-container matColumnDef="committer">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Committer</mat-header-cell>
-        <mat-cell *matCellDef="let row" >{{row.committer}}</mat-cell>
-        </ng-container> -->
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Committer</mat-header-cell>
+            <mat-cell *matCellDef="let row" >{{row.committer}}</mat-cell>
+            </ng-container> -->
 
         <!-- Author column -->
         <!-- <ng-container matColumnDef="commit">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Commit</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.commit}}</mat-cell>
-        </ng-container> -->
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Commit</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.commit}}</mat-cell>
+            </ng-container> -->
 
         <!-- url column -->
         <ng-container matColumnDef="html_url">
@@ -35,14 +35,14 @@ Reload data:
 
         <!-- reroute column -->
         <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef>
-                Open in new tab
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i=index;">
-                <button mat-icon-button color="accent" (click)="visit(i, row.html_url)">
-                <mat-icon aria-label="open">open_in_new</mat-icon>
-                </button>
-            </mat-cell>
+        <mat-header-cell *matHeaderCellDef>
+            Open in new tab
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i=index;">
+            <button mat-icon-button color="accent" (click)="visit(i, row.html_url)">
+            <mat-icon aria-label="open">open_in_new</mat-icon>
+            </button>
+        </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -55,10 +55,7 @@ Reload data:
     </div>
 
     <!-- Paginator -->
-    <mat-paginator #paginator
-                    [length]="dataSource.filteredData.length"
-                    [pageIndex]="0"
-                    [pageSize]="5"
-                    [pageSizeOptions]="[5, 10, 25, 100]">
+    <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>
 </div>

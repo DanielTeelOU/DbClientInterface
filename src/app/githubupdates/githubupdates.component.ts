@@ -1,11 +1,21 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { UpDataService } from '../services/data2.service';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Update } from '../models/update';
 import { DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  fromEvent,
+  merge,
+  Observable
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -24,11 +34,17 @@ export class GithubupdatesComponent implements OnInit {
   id: number;
 
   constructor(public httpClient: HttpClient,
-              public dataService: UpDataService) { }
+    public dataService: UpDataService) {}
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild('filter',  {static: true}) filter: ElementRef;
+  @ViewChild(MatPaginator, {
+    static: true
+  }) paginator: MatPaginator;
+  @ViewChild(MatSort, {
+    static: true
+  }) sort: MatSort;
+  @ViewChild('filter', {
+    static: true
+  }) filter: ElementRef;
 
   ngOnInit() {
     this.loadData();
@@ -62,7 +78,7 @@ export class GithubupdatesComponent implements OnInit {
 }
 
 // this class fetches the data from the API, enables filtering and pagination
-export class UpdateDataSource extends DataSource<Update> {
+export class UpdateDataSource extends DataSource < Update > {
   // tslint:disable-next-line:variable-name
   _filterChange = new BehaviorSubject('');
 
@@ -79,14 +95,14 @@ export class UpdateDataSource extends DataSource<Update> {
 
   // tslint:disable:variable-name
   constructor(public _imaginaryDatabase2: UpDataService,
-              public _paginator: MatPaginator,
-              public _sort: MatSort) {
+    public _paginator: MatPaginator,
+    public _sort: MatSort) {
     super();
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
   // tslint:enable:variable-name
 
-  connect(): Observable<Update[]> {
+  connect(): Observable < Update[] > {
     const displayDataChanges = [
       this._imaginaryDatabase2.dataChange,
       this._sort.sortChange,
@@ -97,19 +113,18 @@ export class UpdateDataSource extends DataSource<Update> {
     this._imaginaryDatabase2.getAllUpdates();
 
     // to  filter
-    return merge(...displayDataChanges).pipe(map( () => {
+    return merge(...displayDataChanges).pipe(map(() => {
       this.filteredData = this._imaginaryDatabase2.data.slice().filter((update: Update) => {
-          const searchStr = (update.html_url).toString().toLowerCase();
-          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-        });
+        const searchStr = (update.html_url).toString().toLowerCase();
+        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+      });
 
       const sortedData = this.sortData(this.filteredData.slice());
 
       const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
       this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
       return this.renderedData;
-      }
-    ));
+    }));
   }
 
   disconnect() {}
@@ -125,10 +140,12 @@ export class UpdateDataSource extends DataSource<Update> {
       let propertyB: number | string = '';
 
       switch (this._sort.active) {
-      // case 'committer': [propertyA, propertyB] = [a.date, b.date]; break;
-      // case 'commit': [propertyA, propertyB] = [a.login, b.login]; break;
-      case 'html_url': [propertyA, propertyB] = [a.message, b.message]; break;
-    }
+        // case 'committer': [propertyA, propertyB] = [a.date, b.date]; break;
+        // case 'commit': [propertyA, propertyB] = [a.login, b.login]; break;
+        case 'html_url':
+          [propertyA, propertyB] = [a.message, b.message];
+          break;
+      }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

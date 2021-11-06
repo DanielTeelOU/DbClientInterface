@@ -1,20 +1,20 @@
 .form {
-    min-height: 56px;
-    max-height: 56px;
-    display: flex;
-    align-items: center;
-    padding: 8px 24px 0;
-    font-size: 20px;
-    justify-content: space-between;
-    border-bottom: 1px solid transparent;
-  }
+  min-height: 56px;
+  max-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+}
 
-  .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: lightgrey;
-    color: black;
-    text-align: center;
-  }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: lightgrey;
+  color: black;
+  text-align: center;
+}
